@@ -21,7 +21,7 @@ npm start
 
 2. http://localhost:8080/auth/login
 
-Authorize your google account, the response will be a token, copy this to access the other APIs
+   Authorize your google account, the response will be a token, copy this to access the other APIs
 
 3. http://localhost:8080//spreadsheet/{spreadsheet_id_passed_here}
 
