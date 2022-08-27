@@ -3,10 +3,10 @@ Sheets API provides endpoints to login, read and update spreadsheets in google s
 
 ## Requirements
 
-Nodejs and npm should be installed. Additionally, nodemon should be globally installed
+Nodejs and npm should be installed. Additionally, install the packages required by running,
 
 ```bash
-npm I nodemon -g
+npm i 
 ```
 
 ## Run the project
