@@ -89,7 +89,7 @@ module.exports = {
                 if (err) return console.log('The API returned an error: ' + err);
 
                 sheets = sheets.data.sheets;
-                if(sheets == null) throw httpError.BadRequest('Invalid Sheet id')
+                if (sheets == null) throw httpError.BadRequest('Invalid Sheet id')
                 var sheetTitle
 
                 await sheets.forEach(sheet => {
@@ -104,16 +104,20 @@ module.exports = {
 
                     row = parseInt(req.body.row_number);
                     column_number = parseInt(req.body.column_number);
-               
-                    if(row == null || isNaN(row) || column_number== null || isNaN(column_number))
+
+                    if (row == null || isNaN(row) || column_number == null || isNaN(column_number))
                         throw httpError.BadRequest('Number of rows or column not found')
 
-                    column = (column_number + 9).toString(36).toUpperCase()
+                    let column = ''
+                    while (column_number >= 0) {
+                        column = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[column_number % 26] + column
+                        column_number = Math.floor(column_number / 26) - 1
+                    }
 
                     range = sheetTitle + '!' + column + row
 
                     value = req.body.value
-                    if(value == null)
+                    if (value == null)
                         throw httpError.BadRequest('Value not found')
 
                     await googleSheets.spreadsheets.values.update({
@@ -126,7 +130,7 @@ module.exports = {
                         },
                         auth: oAuth2Client,
                     }).then((data, err) => {
-                        if (err) {                    
+                        if (err) {
                             console.log(err)
                             throw httpError(err)
                         }
